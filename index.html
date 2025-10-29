@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login | TRY OUT</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    /* Salin semua CSS dari file simulasi.html Anda ke sini */
+    body {
+        background: linear-gradient(135deg, #326698 0%, #4a7fb8 100%, #667eea 100%); 
+        font-family: 'Poppins', sans-serif;
+    }
+    .wrapper {
+        display: flex; align-items: center; flex-direction: column; 
+        justify-content: center; width: 100%; min-height: 100vh; padding: 20px;
+    }
+    #formContent {
+        -webkit-border-radius: 20px; border-radius: 20px; background: #ffffff;
+        padding: 45px; width: 90%; max-width: 450px; /* Lebih kecil untuk login */
+        position: relative; -webkit-box-shadow: 0 15px 35px 0 rgba(50, 102, 152, 0.1);
+        box-shadow: 0 15px 35px 0 rgba(50, 102, 152, 0.1); text-align: center;
+    }
+    .custom-btn {
+        background: linear-gradient(135deg, #326698 0%, #4a7fb8 100%); border: none;
+        border-radius: 12px; padding: 16px 30px; font-weight: 600;
+        font-size: 16px; transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(50, 102, 152, 0.25);
+    }
+    .custom-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(50, 102, 152, 0.35);
+    }
+    /* Loader (salin dari simulasi.html) */
+    .loader {
+	  margin: 0; position: absolute; top: 50%; left: 50%;
+	  -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);
+	}
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div id="formContent">
+    <h3 class="mb-4" style="font-weight: 600; color: #333;">LOGIN SISWA</h3>
+    <p class="text-muted mb-4">SMPN 10 BANAWA SELATAN</p>
+    
+    <form id="login-form">
+      <div class="form-group">
+        <input type="text" id="nis-input" class="form-control" placeholder="Masukkan NIS Anda" style="border-radius: 12px; padding: 22px 15px;">
+      </div>
+      <button type="button" id="login-btn" class="btn btn-primary btn-block custom-btn">Login</button>
+    </form>
+    
+  </div>
+</div>
+
+<div style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;background:#fff;opacity:0.5;z-index:9999;display:none" id="loader">
+  <img class="loader" src="https://pusmendik.kemdikbud.go.id/tka/_assets/images/loader2.gif">
+</div>
+
+<script>
+  // ⬇️ GANTI DENGAN URL APPS SCRIPT BARU ANDA ⬇️
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxP7ehKf3h0zMZhhUy-ZqgMwtKonLoarVq6XpTQQSiAFZyNeUXUoq-XHPJCF_jQiIt-1w/exec";
+
+  $(document).ready(function() {
+    // Hapus sesi sebelumnya saat kembali ke login
+    sessionStorage.clear();
+
+    $('#login-btn').on('click', function() {
+      var nis = $('#nis-input').val().trim();
+      if (!nis) {
+        alert('Harap masukkan NIS Anda.');
+        return;
+      }
+
+      $('#loader').fadeIn();
+      
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        data: {
+          action: "loginSiswa",
+          nis: nis
+        },
+        url: SCRIPT_URL,
+        cache: false,
+        success: function(response) {
+          $('#loader').fadeOut();
+          if (response.status === 'success') {
+            // Simpan data user di session storage untuk dipakai di halaman lain
+            sessionStorage.setItem('user_tryout', JSON.stringify(response.data));
+            // Pindah ke halaman pilih mapel
+            window.location.href = 'mapel.html';
+          } else {
+            alert(response.message);
+          }
+        },
+        error: function() {
+          $('#loader').fadeOut();
+          alert('Error terhubung ke server. Silakan coba lagi.');
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
