@@ -9,7 +9,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
-    /* Salin semua CSS dari file simulasi.html Anda ke sini */
     body {
         background: linear-gradient(135deg, #326698 0%, #4a7fb8 100%, #667eea 100%); 
         font-family: 'Poppins', sans-serif;
@@ -20,7 +19,7 @@
     }
     #formContent {
         -webkit-border-radius: 20px; border-radius: 20px; background: #ffffff;
-        padding: 45px; width: 90%; max-width: 450px; /* Lebih kecil untuk login */
+        padding: 45px; width: 90%; max-width: 450px;
         position: relative; -webkit-box-shadow: 0 15px 35px 0 rgba(50, 102, 152, 0.1);
         box-shadow: 0 15px 35px 0 rgba(50, 102, 152, 0.1); text-align: center;
     }
@@ -34,7 +33,6 @@
         transform: translateY(-2px);
         box-shadow: 0 8px 25px rgba(50, 102, 152, 0.35);
     }
-    /* Loader (salin dari simulasi.html) */
     .loader {
 	  margin: 0; position: absolute; top: 50%; left: 50%;
 	  -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);
@@ -63,8 +61,8 @@
 </div>
 
 <script>
-  // ⬇️ GANTI DENGAN URL APPS SCRIPT BARU ANDA ⬇️
-  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyhpjgZDlfVzMm0X8-H-i-NFDqp7btDYWVhykhiEhmo6zpnHQK6SeogLiL-Qc0Tlv4PBQ/exec";
+  // ⬇️ GANTI DENGAN WEB APP URL BARU ANDA ⬇️
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2-jxE7IrorLdSVC0y3y_-JYTdXYVqb5bgsy-3Lp1j9cPcaxAJQMguTnUp_dNWiZrvJw/exec";
 
   $(document).ready(function() {
     // Hapus sesi sebelumnya saat kembali ke login
@@ -91,9 +89,7 @@
         success: function(response) {
           $('#loader').fadeOut();
           if (response.status === 'success') {
-            // Simpan data user di session storage untuk dipakai di halaman lain
             sessionStorage.setItem('user_tryout', JSON.stringify(response.data));
-            // Pindah ke halaman pilih mapel
             window.location.href = 'mapel.html';
           } else {
             alert(response.message);
@@ -104,6 +100,13 @@
           alert('Error terhubung ke server. Silakan coba lagi.');
         }
       });
+    });
+
+    // Izinkan login dengan menekan Enter
+    $('#nis-input').on('keypress', function(e) {
+        if (e.which == 13) {
+            $('#login-btn').click();
+        }
     });
   });
 </script>
