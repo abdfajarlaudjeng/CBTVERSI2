@@ -9,7 +9,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
-    /* Salin semua CSS dari file simulasi.html Anda ke sini */
     body {
         background: linear-gradient(135deg, #326698 0%, #4a7fb8 100%, #667eea 100%); 
         font-family: 'Poppins', sans-serif;
@@ -20,7 +19,7 @@
     }
     #formContent {
         -webkit-border-radius: 20px; border-radius: 20px; background: #ffffff;
-        padding: 45px; width: 90%; max-width: 600px; /* Sedang */
+        padding: 45px; width: 90%; max-width: 600px;
         position: relative; -webkit-box-shadow: 0 15px 35px 0 rgba(50, 102, 152, 0.1);
         box-shadow: 0 15px 35px 0 rgba(50, 102, 152, 0.1); text-align: center;
     }
@@ -34,7 +33,6 @@
         transform: translateY(-2px);
         box-shadow: 0 8px 25px rgba(50, 102, 152, 0.35);
     }
-    /* Loader (salin dari simulasi.html) */
     .loader {
 	  margin: 0; position: absolute; top: 50%; left: 50%;
 	  -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);
@@ -58,8 +56,8 @@
 </div>
 
 <script>
-  // ⬇️ GANTI DENGAN URL APPS SCRIPT BARU ANDA ⬇️
-  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyhpjgZDlfVzMm0X8-H-i-NFDqp7btDYWVhykhiEhmo6zpnHQK6SeogLiL-Qc0Tlv4PBQ/exec";
+  // ⬇️ GANTI DENGAN WEB APP URL BARU ANDA ⬇️
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2-jxE7IrorLdSVC0y3y_-JYTdXYVqb5bgsy-3Lp1j9cPcaxAJQMguTnUp_dNWiZrvJw/exec";
   
   var userData;
 
@@ -90,7 +88,6 @@
         if (mapels && mapels.length > 0) {
           var mapelHtml = '';
           mapels.forEach(function(mapel) {
-            // 'data-id' dan 'data-nama' digunakan untuk menyimpan info mapel
             mapelHtml += `
               <button class="btn btn-primary custom-btn btn-block mb-3 mapel-btn" 
                       data-id="${mapel.id}" 
@@ -111,15 +108,12 @@
     });
 
     // 4. Event listener untuk tombol mapel
-    // Kita pakai 'document.on' karena tombol dibuat dinamis
     $(document).on('click', '.mapel-btn', function() {
       var mapelId = $(this).data('id');
       var mapelNama = $(this).data('nama');
       
-      // Simpan mapel yang dipilih ke session storage
       sessionStorage.setItem('mapel_tryout', JSON.stringify({ id: mapelId, nama: mapelNama }));
       
-      // Pindah ke halaman simulasi/ujian
       window.location.href = 'simulasi.html';
     });
 
