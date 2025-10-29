@@ -329,17 +329,23 @@
 			jawaban: userAnswers
 		};
 		
-		$.ajax({
-			type: "POST",
-			url: SCRIPT_URL,
-			data: JSON.stringify(postData),
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-			success: function(response) {
-				$('#loader').fadeOut();
-				displayResults(finalScore, totalQuestions, correctAnswers, wrongAnswers);
-				sessionStorage.clear();
-			},
+		// ⬇️ Perbaikan agar data tersimpan ke Spreadsheet ⬇️
+$.ajax({
+  type: "POST",
+  url: SCRIPT_URL,
+  data: postData, // kirim sebagai form-encoded, bukan JSON
+  success: function(response) {
+    $('#loader').fadeOut();
+    displayResults(finalScore, totalQuestions, correctAnswers, wrongAnswers);
+    sessionStorage.clear();
+  },
+  error: function(xhr, status, error) {
+    $('#loader').fadeOut();
+    alert("Peringatan: Gagal menyimpan hasil Anda ke server. Harap lapor ke pengawas.\nSkor Anda akan tetap ditampilkan.");
+    displayResults(finalScore, totalQuestions, correctAnswers, wrongAnswers);
+    sessionStorage.clear();
+  }
+});
 			error: function(xhr, status, error) {
 				// INI YANG MUNCUL DI LAYAR ANDA
 				$('#loader').fadeOut();
