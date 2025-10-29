@@ -1,389 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Simulasi | TRY OUT</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <title>Simulasi | TRY OUT</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
 
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    </head>
 <body style="background: linear-gradient(135deg, #326698 0%, #4a7fb8 100%, #667eea 100%); font-family: 'Poppins', sans-serif;">
 
-<div class="container-fluid text-white" 
-	style="background: linear-gradient(135deg, #326698 0%, #4a7fb8 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.1); height:120px; position:fixed; top:0px; left:0px; right:0px; z-index:1000;"
-	>
-	  <div class="row h-100 align-items-center">
-		<div class="col-12">
-			<div class="d-flex align-items-center justify-content-center">
-				<div class="header-text">
-					<h3 class="mb-1" style="font-weight: 700; font-size: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">SMPN 10 BANAWA SELATAN</h3>
-					<p class="mb-0" style="font-size: 14px; opacity: 0.9; text-shadow: 0 1px 2px rgba(0,0,0,0.3);" id="mapel-header">TRY OUT</p>
-				</div>
-			</div>
-		</div>
-	  </div>
+<!-- HEADER -->
+<div class="container-fluid text-white"
+  style="background: linear-gradient(135deg, #326698 0%, #4a7fb8 100%);
+         box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+         height:120px; position:fixed; top:0; left:0; right:0; z-index:1000;">
+  <div class="row h-100 align-items-center">
+    <div class="col-12 text-center">
+      <h3 style="font-weight:700;font-size:20px;text-shadow:0 2px 4px rgba(0,0,0,0.3);">SMPN 10 BANAWA SELATAN</h3>
+      <p id="mapel-header" style="font-size:14px;opacity:0.9;text-shadow:0 1px 2px rgba(0,0,0,0.3);">TRY OUT</p>
+    </div>
+  </div>
 </div>
 
-<div class="wrapper " style="margin: 0 auto; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding-top: 140px; padding-bottom: 40px;">
-  <div id="formContent" style="max-width: 800px; width: 90%;">
-    
-    <div class="d-flex justify-content-between mb-3" style="flex-wrap: wrap;">
-		<span id="user-info" style="font-weight: 600; color: #333; margin-bottom: 5px;"></span>
-		<span id="question-counter" style="font-weight: 600; color: #333; margin-bottom: 5px;"></span>
-	</div>
-	
+<!-- KONTEN -->
+<div class="wrapper" style="margin:0 auto;display:flex;justify-content:center;align-items:center;min-height:100vh;padding-top:140px;padding-bottom:40px;">
+  <div id="formContent" style="max-width:800px;width:90%;">
+    <div class="d-flex justify-content-between mb-3" style="flex-wrap:wrap;">
+      <span id="user-info" style="font-weight:600;color:#333;margin-bottom:5px;"></span>
+      <span id="question-counter" style="font-weight:600;color:#333;margin-bottom:5px;"></span>
+    </div>
+
     <div id="quiz-container">
-		<div id="question-text" style="font-size: 1.1rem; font-weight: 500; color: #000; text-align: left; margin-bottom: 20px;">
-			</div>
-		
-		<div id="options-container" style="text-align: left;">
-			</div>
-	</div>
-	
-    <div class="d-flex justify-content-between mt-4">
-		<button id="prev-btn" class="btn btn-secondary" style="border-radius: 12px; padding: 12px 25px;"><i class="fas fa-arrow-left mr-2"></i>Sebelumnya</button>
-		<button id="next-btn" class="btn btn-primary custom-btn" style="padding: 12px 25px;">Berikutnya<i class="fas fa-arrow-right ml-2"></i></button>
-		<button id="submit-btn" class="btn btn-success" style="border-radius: 12px; padding: 12px 25px; display: none;"><i class="fas fa-check-circle mr-2"></i>Selesai</button>
-	</div>
+      <div id="question-text" style="font-size:1.1rem;font-weight:500;color:#000;text-align:left;margin-bottom:20px;"></div>
+      <div id="options-container" style="text-align:left;"></div>
+    </div>
 
-  </div> 
+    <div class="d-flex justify-content-between mt-4">
+      <button id="prev-btn" class="btn btn-secondary" style="border-radius:12px;padding:12px 25px;">
+        <i class="fas fa-arrow-left mr-2"></i>Sebelumnya
+      </button>
+      <button id="next-btn" class="btn btn-primary custom-btn" style="padding:12px 25px;">
+        Berikutnya<i class="fas fa-arrow-right ml-2"></i>
+      </button>
+      <button id="submit-btn" class="btn btn-success" style="border-radius:12px;padding:12px 25px;display:none;">
+        <i class="fas fa-check-circle mr-2"></i>Selesai
+      </button>
+    </div>
+  </div>
 </div>
 
-<div  style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;background:#fff;opacity:0.5;z-index:9999;display:none" id="loader">
-<img class="loader" src="https://pusmendik.kemdikbud.go.id/tka/_assets/images/loader2.gif" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+<!-- LOADER -->
+<div style="position:absolute;top:0;left:0;right:0;bottom:0;background:#fff;opacity:0.5;z-index:9999;display:none" id="loader">
+  <img class="loader" src="https://pusmendik.kemdikbud.go.id/tka/_assets/images/loader2.gif"
+       style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
 </div>
 
 <style>
-/* ... (Salin semua CSS dari file index.html Anda) ... */
-	.loader {
-	  margin: 0;
-	  position: absolute;
-	  top: 50%;
-	  left: 50%;
-	  -ms-transform: translate(-50%, -50%);
-	  transform: translate(-50%, -50%);
-	}
-	.wrapper {
-	  display: flex;
-	  align-items: center;
-	  flex-direction: column; 
-	  justify-content: center;
-	  width: 100%;
-	  min-height: 100vh;
-	  padding: 20px;
-	  padding-bottom: 80px;
-	  margin: 0 auto;
-	  text-align: center;
-	}
-	#formContent {
-	  -webkit-border-radius: 20px;
-	  border-radius: 20px;
-	  background: #ffffff;
-	  padding: 45px;
-	  width: 90%;
-	  max-width: 800px;
-	  position: relative;
-	  -webkit-box-shadow: 0 15px 35px 0 rgba(50, 102, 152, 0.1);
-	  box-shadow: 0 15px 35px 0 rgba(50, 102, 152, 0.1);
-	  text-align: center;
-	  border: 1px solid rgba(255,255,255,0.8);
-	}
-	.header-text h3 {
-		margin: 0;
-		letter-spacing: 1px;
-	}
-	.header-text p {
-		margin: 0;
-		font-weight: 400;
-	}
-	.custom-btn {
-		background: linear-gradient(135deg, #326698 0%, #4a7fb8 100%);
-		border: none;
-		border-radius: 12px;
-		padding: 16px 30px;
-		font-weight: 600;
-		font-size: 16px;
-		transition: all 0.3s ease;
-		box-shadow: 0 6px 20px rgba(50, 102, 152, 0.25);
-	}
-	.custom-btn:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 8px 25px rgba(50, 102, 152, 0.35);
-	}
-	
-	/* CSS Khusus untuk Opsi Jawaban */
-	.option-label {
-		display: block;
-		background: #f8f9fa;
-		border: 2px solid #e8ecf1;
-		border-radius: 12px;
-		padding: 15px;
-		margin-bottom: 10px;
-		cursor: pointer;
-		transition: all 0.2s ease;
-		color: #333;
-	}
-	.option-label:hover {
-		background: #e9ecef;
-		border-color: #4a7fb8;
-	}
-	.option-label.selected {
-		background: #d4edda;
-		border-color: #28a745;
-		font-weight: 600;
-	}
-	.option-input {
-		display: none; /* Sembunyikan radio button asli */
-	}
-	.option-letter {
-		display: inline-block;
-		width: 25px;
-		height: 25px;
-		line-height: 21px;
-		text-align: center;
-		border: 2px solid #326698;
-		border-radius: 50%;
-		margin-right: 15px;
-		font-weight: 600;
-		color: #326698;
-	}
-	.option-label.selected .option-letter {
-		background: #28a745;
-		border-color: #28a745;
-		color: white;
-	}
-
-    /* CSS Tambahan untuk Halaman Hasil */
-    .icon-circle {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        color: white;
-        font-size: 40px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
+  .loader {margin:0;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
+  #formContent {
+    border-radius:20px;background:#fff;padding:45px;max-width:800px;
+    box-shadow:0 15px 35px 0 rgba(50,102,152,0.1);
+    text-align:center;border:1px solid rgba(255,255,255,0.8);
+  }
+  .custom-btn {
+    background:linear-gradient(135deg,#326698 0%,#4a7fb8 100%);
+    border:none;border-radius:12px;padding:16px 30px;
+    font-weight:600;font-size:16px;transition:all 0.3s ease;
+    box-shadow:0 6px 20px rgba(50,102,152,0.25);
+  }
+  .custom-btn:hover {
+    transform:translateY(-2px);
+    box-shadow:0 8px 25px rgba(50,102,152,0.35);
+  }
+  .option-label {
+    display:block;background:#f8f9fa;border:2px solid #e8ecf1;
+    border-radius:12px;padding:15px;margin-bottom:10px;cursor:pointer;
+    transition:all 0.2s ease;color:#333;
+  }
+  .option-label:hover {background:#e9ecef;border-color:#4a7fb8;}
+  .option-label.selected {background:#d4edda;border-color:#28a745;font-weight:600;}
+  .option-input {display:none;}
+  .option-letter {
+    display:inline-block;width:25px;height:25px;line-height:21px;text-align:center;
+    border:2px solid #326698;border-radius:50%;margin-right:15px;
+    font-weight:600;color:#326698;
+  }
+  .option-label.selected .option-letter {
+    background:#28a745;border-color:#28a745;color:white;
+  }
+  .icon-circle {
+    width:80px;height:80px;border-radius:50%;color:white;
+    font-size:40px;display:inline-flex;align-items:center;justify-content:center;
+  }
 </style>
 
 <script>
-	// ⬇️ GANTI DENGAN WEB APP URL BARU ANDA ⬇️
-	var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2-jxE7IrorLdSVC0y3y_-JYTdXYVqb5bgsy-3Lp1j9cPcaxAJQMguTnUp_dNWiZrvJw/exec";
+  // GANTI DENGAN WEB APP URL ANDA
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2-jxE7IrorLdSVC0y3y_-JYTdXYVqb5bgsy-3Lp1j9cPcaxAJQMguTnUp_dNWiZrvJw/exec";
 
-	var userData, mapelData;
-	var allQuestions = [];
-	var currentQuestionIndex = 0;
-	var userAnswers = [];
+  var userData, mapelData;
+  var allQuestions = [];
+  var currentQuestionIndex = 0;
+  var userAnswers = [];
 
-	$(document).ready(function() {
-		// 1. Verifikasi Login dan Mapel
-		userData = JSON.parse(sessionStorage.getItem('user_tryout'));
-		mapelData = JSON.parse(sessionStorage.getItem('mapel_tryout'));
+  $(document).ready(function() {
+    userData = JSON.parse(sessionStorage.getItem('user_tryout'));
+    mapelData = JSON.parse(sessionStorage.getItem('mapel_tryout'));
 
-		if (!userData || !mapelData) {
-			alert('Sesi Anda telah berakhir. Silakan login kembali.');
-			window.location.href = 'index.html';
-			return;
-		}
+    if (!userData || !mapelData) {
+      alert('Sesi Anda telah berakhir. Silakan login kembali.');
+      window.location.href = 'index.html';
+      return;
+    }
 
-		// 2. Tampilkan Info
-		$('#user-info').text('Siswa: ' + userData.nama);
-		$('#mapel-header').text('Mapel: ' + mapelData.nama);
-		$('#loader').fadeIn();
+    $('#user-info').text('Siswa: ' + userData.nama);
+    $('#mapel-header').text('Mapel: ' + mapelData.nama);
+    $('#loader').fadeIn();
 
-		// 3. Ambil Soal dari Apps Script
-		$.ajax({
-			type: "GET",
-			dataType: "json",
-			data: { 
-				action: "getSoal",
-				mapel: mapelData.id // Kirim 'id' mapel
-			},
-			url: SCRIPT_URL,
-			cache: false,
-			success: function(result) {
-				if (result && result.length > 0) {
-					allQuestions = result;
-					userAnswers = new Array(allQuestions.length).fill(null); 
-					displayQuestion(currentQuestionIndex);
-					$('#loader').fadeOut();
-				} else {
-					$('#quiz-container').html('<h3 class="text-danger">Gagal memuat soal.</h3><p>Tidak ada soal ditemukan untuk mata pelajaran ini.</p>');
-					$('#loader').fadeOut();
-				}
-			},
-			error: function() {
-				$('#quiz-container').html('<h3 class="text-danger">Error Server.</h3><p>Gagal terhubung ke database soal. Silakan coba lagi nanti.</p>');
-				$('#loader').fadeOut();
-			}
-		});
-
-		// 4. Atur Tombol Navigasi
-		$('#next-btn').on('click', function() {
-			saveAnswer();
-			if (currentQuestionIndex < allQuestions.length - 1) {
-				currentQuestionIndex++;
-				displayQuestion(currentQuestionIndex);
-			}
-		});
-
-		$('#prev-btn').on('click', function() {
-			saveAnswer();
-			if (currentQuestionIndex > 0) {
-				currentQuestionIndex--;
-				displayQuestion(currentQuestionIndex);
-			}
-		});
-		
-		$('#submit-btn').on('click', function() {
-			saveAnswer(); // Simpan jawaban terakhir
-			if (confirm('Apakah Anda yakin ingin menyelesaikan ujian ini?')) {
-				finishExam();
-			}
-		});
-	});
-
-	function displayQuestion(index) {
-		var q = allQuestions[index];
-		$('#question-text').html((index + 1) + ". " + q.pertanyaan); 
-		
-		var optionsHtml = '';
-		optionsHtml += createOption('A', q.opsi_a);
-		optionsHtml += createOption('B', q.opsi_b);
-		optionsHtml += createOption('C', q.opsi_c);
-		optionsHtml += createOption('D', q.opsi_d);
-		
-		$('#options-container').html(optionsHtml);
-		
-		if (userAnswers[index]) {
-			$('#option-' + userAnswers[index]).prop('checked', true).parent().addClass('selected');
-		}
-
-		$('#prev-btn').prop('disabled', index === 0);
-		$('#next-btn').toggle(index < allQuestions.length - 1);
-		$('#submit-btn').toggle(index === allQuestions.length - 1);
-		
-		$('#question-counter').text('Soal ' + (index + 1) + ' / ' + allQuestions.length);
-		
-		$('.option-input').on('change', function() {
-			$('.option-label').removeClass('selected');
-			if ($(this).is(':checked')) {
-				$(this).parent().addClass('selected');
-			}
-		});
-
-        // ⬇️ KODE TAMBAHAN UNTUK RUMUS MATEMATIKA (MATHJAX) ⬇️
-        // Memberi tahu MathJax untuk merender rumus baru setiap soal ganti
-        if (window.MathJax) {
-            MathJax.typesetPromise();
+    // Ambil Soal dari Apps Script
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      data: { action: "getSoal", mapel: mapelData.id },
+      url: SCRIPT_URL,
+      cache: false,
+      success: function(result) {
+        if (result && result.length > 0) {
+          allQuestions = result;
+          userAnswers = new Array(allQuestions.length).fill(null);
+          displayQuestion(currentQuestionIndex);
+          $('#loader').fadeOut();
+        } else {
+          $('#quiz-container').html('<h3 class="text-danger">Gagal memuat soal.</h3>');
+          $('#loader').fadeOut();
         }
-        // ⬆️ AKHIR KODE TAMBAHAN ⬆️
-	}
-	
-	function createOption(letter, text) {
-		return `
-			<label class="option-label">
-				<input type="radio" class="option-input" name="option" id="option-${letter}" value="${letter}">
-				<span class="option-letter">${letter}</span>
-				${text}
-			</label>
-		`;
-	}
-	
-	function saveAnswer() {
-		var selectedOption = $('input[name="option"]:checked').val();
-		if (selectedOption) {
-			userAnswers[currentQuestionIndex] = selectedOption;
-		}
-	}
-	
-	function finishExam() {
-		$('#loader').fadeIn();
-		
-		var score = 0;
-		for (var i = 0; i < allQuestions.length; i++) {
-			if (userAnswers[i] === allQuestions[i].kunci) {
-				score++;
-			}
-		}
-		
-		var totalQuestions = allQuestions.length;
-		var finalScore = (score / totalQuestions) * 100;
-		var correctAnswers = score;
-		var wrongAnswers = totalQuestions - score;
-		
-		var postData = {
-			namaSiswa: userData.nama,
-			mapel: mapelData.nama,
-			skor: finalScore.toFixed(0),
-			benar: correctAnswers,
-			salah: wrongAnswers,
-			total: totalQuestions,
-			jawaban: userAnswers
-		};
-		
-		// ⬇️ Perbaikan agar data tersimpan ke Spreadsheet ⬇️
-$.ajax({
-  type: "POST",
-  url: SCRIPT_URL,
-  data: postData, // kirim sebagai form-encoded, bukan JSON
-  success: function(response) {
-    $('#loader').fadeOut();
-    displayResults(finalScore, totalQuestions, correctAnswers, wrongAnswers);
-    sessionStorage.clear();
-  },
-  error: function(xhr, status, error) {
-    $('#loader').fadeOut();
-    alert("Peringatan: Gagal menyimpan hasil Anda ke server. Harap lapor ke pengawas.\nSkor Anda akan tetap ditampilkan.");
-    displayResults(finalScore, totalQuestions, correctAnswers, wrongAnswers);
-    sessionStorage.clear();
-  }
-});
-			error: function(xhr, status, error) {
-				// INI YANG MUNCUL DI LAYAR ANDA
-				$('#loader').fadeOut();
-				alert("Peringatan: Gagal menyimpan hasil Anda ke server. Harap lapor ke pengawas.\nSkor Anda akan tetap ditampilkan.");
-				displayResults(finalScore, totalQuestions, correctAnswers, wrongAnswers);
-				sessionStorage.clear();
-			}
-		});
-	}
-	
-	function displayResults(finalScore, totalQuestions, correctAnswers, wrongAnswers) {
-		$('#formContent').html(`
-			<div class="fadeIn text-center">
-			  <div class="header-icon mb-4">
-				<div class="icon-circle" style="background: #28a745;">
-				  <i class="fas fa-check"></i>
-				</div>
-				<h4 class="mt-3 mb-1" style="color: #333; font-weight: 600;">Ujian Selesai</h4>
-				<p class="text-muted" style="font-size: 14px;">Terima kasih, ${userData.nama}!</p>
-			  </div>
-			  
-			  <h3 style="font-weight: 700; color: #326698;">Skor Akhir Anda: ${finalScore.toFixed(0)}</h3>
-			  
-			  <div class="mt-4" style="text-align: left; max-width: 300px; margin: 0 auto;">
-				<p style="font-size: 1.1rem;"><strong>Total Soal:</strong> ${totalQuestions}</p>
-				<p style="font-size: 1.1rem; color: #28a745;"><strong>Jawaban Benar:</strong> ${correctAnswers}</p>
-				<p style="font-size: 1.1rem; color: #dc3545;"><strong>Jawaban Salah:</strong> ${wrongAnswers}</p>
-			  </div>
-			  
-			  <div class="text-center mt-4">
-				<button type="button" class="btn btn-primary btn-lg btn-block custom-btn" onClick="window.location.href='index.html'">
-				  <i class="fas fa-home mr-2"></i>Kembali ke Halaman Utama
-				</button>
-			  </div>
-			</div>
-		`);
-	}
+      },
+      error: function() {
+        $('#quiz-container').html('<h3 class="text-danger">Error Server.</h3>');
+        $('#loader').fadeOut();
+      }
+    });
 
+    $('#next-btn').on('click', function() {
+      saveAnswer();
+      if (currentQuestionIndex < allQuestions.length - 1) {
+        currentQuestionIndex++;
+        displayQuestion(currentQuestionIndex);
+      }
+    });
+
+    $('#prev-btn').on('click', function() {
+      saveAnswer();
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        displayQuestion(currentQuestionIndex);
+      }
+    });
+    
+    $('#submit-btn').on('click', function() {
+      saveAnswer();
+      if (confirm('Apakah Anda yakin ingin menyelesaikan ujian ini?')) {
+        finishExam();
+      }
+    });
+  });
+
+  function displayQuestion(index) {
+    var q = allQuestions[index];
+    $('#question-text').html((index + 1) + ". " + q.pertanyaan);
+    
+    var optionsHtml = '';
+    optionsHtml += createOption('A', q.opsi_a);
+    optionsHtml += createOption('B', q.opsi_b);
+    optionsHtml += createOption('C', q.opsi_c);
+    optionsHtml += createOption('D', q.opsi_d);
+    
+    $('#options-container').html(optionsHtml);
+
+    if (userAnswers[index]) {
+      $('#option-' + userAnswers[index]).prop('checked', true).parent().addClass('selected');
+    }
+
+    $('#prev-btn').prop('disabled', index === 0);
+    $('#next-btn').toggle(index < allQuestions.length - 1);
+    $('#submit-btn').toggle(index === allQuestions.length - 1);
+    $('#question-counter').text('Soal ' + (index + 1) + ' / ' + allQuestions.length);
+    
+    $('.option-input').on('change', function() {
+      $('.option-label').removeClass('selected');
+      if ($(this).is(':checked')) {
+        $(this).parent().addClass('selected');
+      }
+    });
+
+    if (window.MathJax) MathJax.typesetPromise();
+  }
+
+  function createOption(letter, text) {
+    return `
+      <label class="option-label">
+        <input type="radio" class="option-input" name="option" id="option-${letter}" value="${letter}">
+        <span class="option-letter">${letter}</span>
+        ${text}
+      </label>`;
+  }
+
+  function saveAnswer() {
+    var selectedOption = $('input[name="option"]:checked').val();
+    if (selectedOption) {
+      userAnswers[currentQuestionIndex] = selectedOption;
+    }
+  }
+
+  function finishExam() {
+    $('#loader').fadeIn();
+    var score = 0;
+    for (var i = 0; i < allQuestions.length; i++) {
+      if (userAnswers[i] === allQuestions[i].kunci) score++;
+    }
+
+    var totalQuestions = allQuestions.length;
+    var finalScore = (score / totalQuestions) * 100;
+    var correctAnswers = score;
+    var wrongAnswers = totalQuestions - score;
+
+    var postData = {
+      namaSiswa: userData.nama,
+      mapel: mapelData.nama,
+      skor: finalScore.toFixed(0),
+      benar: correctAnswers,
+      salah: wrongAnswers,
+      total: totalQuestions,
+      jawaban: userAnswers.join(", ")
+    };
+
+    // ✅ Perbaikan utama di sini: kirim form-data, bukan JSON mentah
+    $.ajax({
+      type: "POST",
+      url: SCRIPT_URL,
+      data: postData,
+      success: function(response) {
+        $('#loader').fadeOut();
+        displayResults(finalScore, totalQuestions, correctAnswers, wrongAnswers);
+        sessionStorage.clear();
+      },
+      error: function() {
+        $('#loader').fadeOut();
+        alert("Gagal menyimpan hasil Anda ke server. Harap lapor ke pengawas.");
+        displayResults(finalScore, totalQuestions, correctAnswers, wrongAnswers);
+        sessionStorage.clear();
+      }
+    });
+  }
+
+  function displayResults(finalScore, totalQuestions, correctAnswers, wrongAnswers) {
+    $('#formContent').html(`
+      <div class="fadeIn text-center">
+        <div class="icon-circle mb-3" style="background:#28a745;"><i class="fas fa-check"></i></div>
+        <h4 class="mb-1" style="color:#333;font-weight:600;">Ujian Selesai</h4>
+        <p class="text-muted">Terima kasih, ${userData.nama}!</p>
+        <h3 style="font-weight:700;color:#326698;">Skor Akhir: ${finalScore.toFixed(0)}</h3>
+        <div class="mt-4" style="text-align:left;max-width:300px;margin:0 auto;">
+          <p><strong>Total Soal:</strong> ${totalQuestions}</p>
+          <p style="color:#28a745;"><strong>Benar:</strong> ${correctAnswers}</p>
+          <p style="color:#dc3545;"><strong>Salah:</strong> ${wrongAnswers}</p>
+        </div>
+        <button type="button" class="btn btn-primary btn-lg btn-block custom-btn mt-4"
+          onClick="window.location.href='index.html'">
+          <i class="fas fa-home mr-2"></i>Kembali ke Halaman Utama
+        </button>
+      </div>
+    `);
+  }
 </script>
 </body>
 </html>
