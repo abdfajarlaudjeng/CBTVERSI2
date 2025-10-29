@@ -10,7 +10,10 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
 <body style="background: linear-gradient(135deg, #326698 0%, #4a7fb8 100%, #667eea 100%); font-family: 'Poppins', sans-serif;">
 
 <div class="container-fluid text-white" 
@@ -28,7 +31,7 @@
 	  </div>
 </div>
 
-<div class="wrapper " style="margin: 0 auto; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding-top: 140px;">
+<div class="wrapper " style="margin: 0 auto; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding-top: 140px; padding-bottom: 40px;">
   <div id="formContent" style="max-width: 800px; width: 90%;">
     
     <div class="d-flex justify-content-between mb-3" style="flex-wrap: wrap;">
@@ -58,20 +61,7 @@
 </div>
 
 <style>
-/* ... (Salin semua CSS dari index.html) ... */
-	.bg-pattern {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-image: 
-			radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 2px, transparent 2px),
-			radial-gradient(circle at 80% 80%, rgba(255,255,255,0.08) 2px, transparent 2px),
-			radial-gradient(circle at 40% 40%, rgba(255,255,255,0.05) 1px, transparent 1px);
-		background-size: 50px 50px, 80px 80px, 30px 30px;
-		z-index: -1;
-	}
+/* ... (Salin semua CSS dari file index.html Anda) ... */
 	.loader {
 	  margin: 0;
 	  position: absolute;
@@ -88,7 +78,7 @@
 	  width: 100%;
 	  min-height: 100vh;
 	  padding: 20px;
-	  padding-bottom: 80px; /* beri ruang untuk footer */
+	  padding-bottom: 80px;
 	  margin: 0 auto;
 	  text-align: center;
 	}
@@ -98,7 +88,7 @@
 	  background: #ffffff;
 	  padding: 45px;
 	  width: 90%;
-	  max-width: 800px; /* Lebarkan untuk soal */
+	  max-width: 800px;
 	  position: relative;
 	  -webkit-box-shadow: 0 15px 35px 0 rgba(50, 102, 152, 0.1);
 	  box-shadow: 0 15px 35px 0 rgba(50, 102, 152, 0.1);
@@ -122,51 +112,10 @@
 		font-size: 16px;
 		transition: all 0.3s ease;
 		box-shadow: 0 6px 20px rgba(50, 102, 152, 0.25);
-		position: relative;
-		overflow: hidden;
-	}
-	.custom-btn::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: -100%;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-		transition: left 0.5s;
-	}
-	.custom-btn:hover::before {
-		left: 100%;
 	}
 	.custom-btn:hover {
 		transform: translateY(-2px);
 		box-shadow: 0 8px 25px rgba(50, 102, 152, 0.35);
-		background: linear-gradient(135deg, #4a7fb8 0%, #326698 100%);
-	}
-	.custom-btn:active {
-		transform: translateY(0);
-	}
-	@media (max-width: 768px) {
-		#formContent {
-			margin: 20px;
-			padding: 25px;
-		}
-		.container-fluid {
-			height: 100px !important;
-		}
-		.header-text h3 {
-			font-size: 20px !important;
-		}
-		.header-text p {
-			font-size: 12px !important;
-		}
-		.custom-btn {
-			padding: 14px 25px;
-			font-size: 15px;
-		}
-	}
-	#loader {
-		background: rgba(50, 102, 152, 0.1);
 	}
 	
 	/* CSS Khusus untuk Opsi Jawaban */
@@ -225,13 +174,13 @@
 </style>
 
 <script>
-	// ⬇️ GANTI DENGAN URL APPS SCRIPT BARU ANDA DARI LANGKAH 2 ⬇️
-	var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyhpjgZDlfVzMm0X8-H-i-NFDqp7btDYWVhykhiEhmo6zpnHQK6SeogLiL-Qc0Tlv4PBQ/exec";
+	// ⬇️ GANTI DENGAN WEB APP URL BARU ANDA ⬇️
+	var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2-jxE7IrorLdSVC0y3y_-JYTdXYVqb5bgsy-3Lp1j9cPcaxAJQMguTnUp_dNWiZrvJw/exec";
 
 	var userData, mapelData;
 	var allQuestions = [];
 	var currentQuestionIndex = 0;
-	var userAnswers = []; // Array untuk menyimpan jawaban (misal: ['A', 'C', null, 'B'])
+	var userAnswers = [];
 
 	$(document).ready(function() {
 		// 1. Verifikasi Login dan Mapel
@@ -262,7 +211,6 @@
 			success: function(result) {
 				if (result && result.length > 0) {
 					allQuestions = result;
-					// Siapkan array jawaban (null = belum dijawab)
 					userAnswers = new Array(allQuestions.length).fill(null); 
 					displayQuestion(currentQuestionIndex);
 					$('#loader').fadeOut();
@@ -304,7 +252,6 @@
 
 	function displayQuestion(index) {
 		var q = allQuestions[index];
-        // Gunakan .html() agar tag <img> atau <iframe> bisa dirender
 		$('#question-text').html((index + 1) + ". " + q.pertanyaan); 
 		
 		var optionsHtml = '';
@@ -315,25 +262,29 @@
 		
 		$('#options-container').html(optionsHtml);
 		
-		// Set jawaban sebelumnya jika ada
 		if (userAnswers[index]) {
 			$('#option-' + userAnswers[index]).prop('checked', true).parent().addClass('selected');
 		}
 
-		// Atur visibilitas tombol
 		$('#prev-btn').prop('disabled', index === 0);
 		$('#next-btn').toggle(index < allQuestions.length - 1);
 		$('#submit-btn').toggle(index === allQuestions.length - 1);
 		
 		$('#question-counter').text('Soal ' + (index + 1) + ' / ' + allQuestions.length);
 		
-		// Atur event listener untuk pilihan
 		$('.option-input').on('change', function() {
 			$('.option-label').removeClass('selected');
 			if ($(this).is(':checked')) {
 				$(this).parent().addClass('selected');
 			}
 		});
+
+        // ⬇️ KODE TAMBAHAN UNTUK RUMUS MATEMATIKA (MATHJAX) ⬇️
+        // Memberi tahu MathJax untuk merender rumus baru setiap soal ganti
+        if (window.MathJax) {
+            MathJax.typesetPromise();
+        }
+        // ⬆️ AKHIR KODE TAMBAHAN ⬆️
 	}
 	
 	function createOption(letter, text) {
@@ -356,7 +307,6 @@
 	function finishExam() {
 		$('#loader').fadeIn();
 		
-		// 1. Hitung skor
 		var score = 0;
 		for (var i = 0; i < allQuestions.length; i++) {
 			if (userAnswers[i] === allQuestions[i].kunci) {
@@ -369,7 +319,6 @@
 		var correctAnswers = score;
 		var wrongAnswers = totalQuestions - score;
 		
-		// 2. Siapkan data untuk dikirim ke Google Sheet
 		var postData = {
 			namaSiswa: userData.nama,
 			mapel: mapelData.nama,
@@ -377,24 +326,22 @@
 			benar: correctAnswers,
 			salah: wrongAnswers,
 			total: totalQuestions,
-			jawaban: userAnswers // Kirim sebagai array
+			jawaban: userAnswers
 		};
 		
-		// 3. Kirim data (POST) ke Apps Script
 		$.ajax({
 			type: "POST",
-			url: SCRIPT_URL, // URL yang sama dengan GET
+			url: SCRIPT_URL,
 			data: JSON.stringify(postData),
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function(response) {
-				// 4. Tampilkan hasil (setelah berhasil menyimpan)
 				$('#loader').fadeOut();
 				displayResults(finalScore, totalQuestions, correctAnswers, wrongAnswers);
-				sessionStorage.clear(); // Hapus sesi setelah semua selesai
+				sessionStorage.clear();
 			},
 			error: function(xhr, status, error) {
-				// Jika gagal simpan, tetap tampilkan hasil tapi beri peringatan
+				// INI YANG MUNCUL DI LAYAR ANDA
 				$('#loader').fadeOut();
 				alert("Peringatan: Gagal menyimpan hasil Anda ke server. Harap lapor ke pengawas.\nSkor Anda akan tetap ditampilkan.");
 				displayResults(finalScore, totalQuestions, correctAnswers, wrongAnswers);
@@ -403,7 +350,6 @@
 		});
 	}
 	
-	// Fungsi baru untuk menampilkan halaman hasil
 	function displayResults(finalScore, totalQuestions, correctAnswers, wrongAnswers) {
 		$('#formContent').html(`
 			<div class="fadeIn text-center">
