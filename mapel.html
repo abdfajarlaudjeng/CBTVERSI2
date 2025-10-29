@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Pilih Mapel | TRY OUT</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    /* Salin semua CSS dari file simulasi.html Anda ke sini */
+    body {
+        background: linear-gradient(135deg, #326698 0%, #4a7fb8 100%, #667eea 100%); 
+        font-family: 'Poppins', sans-serif;
+    }
+    .wrapper {
+        display: flex; align-items: center; flex-direction: column; 
+        justify-content: center; width: 100%; min-height: 100vh; padding: 20px;
+    }
+    #formContent {
+        -webkit-border-radius: 20px; border-radius: 20px; background: #ffffff;
+        padding: 45px; width: 90%; max-width: 600px; /* Sedang */
+        position: relative; -webkit-box-shadow: 0 15px 35px 0 rgba(50, 102, 152, 0.1);
+        box-shadow: 0 15px 35px 0 rgba(50, 102, 152, 0.1); text-align: center;
+    }
+    .custom-btn {
+        background: linear-gradient(135deg, #326698 0%, #4a7fb8 100%); border: none;
+        border-radius: 12px; padding: 16px 30px; font-weight: 600;
+        font-size: 16px; transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(50, 102, 152, 0.25);
+    }
+    .custom-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(50, 102, 152, 0.35);
+    }
+    /* Loader (salin dari simulasi.html) */
+    .loader {
+	  margin: 0; position: absolute; top: 50%; left: 50%;
+	  -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);
+	}
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div id="formContent">
+    <h3 id="welcome-message" class="mb-4" style="font-weight: 600; color: #333;">Selamat Datang!</h3>
+    <p class="text-muted mb-4">Silakan pilih mata pelajaran yang ingin Anda kerjakan.</p>
+    
+    <div id="mapel-container">
+      </div>
+  </div>
+</div>
+
+<div style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;background:#fff;opacity:0.5;z-index:9999;display:none" id="loader">
+  <img class="loader" src="https://pusmendik.kemdikbud.go.id/tka/_assets/images/loader2.gif">
+</div>
+
+<script>
+  // ⬇️ GANTI DENGAN URL APPS SCRIPT BARU ANDA ⬇️
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxP7ehKf3h0zMZhhUy-ZqgMwtKonLoarVq6XpTQQSiAFZyNeUXUoq-XHPJCF_jQiIt-1w/exec";
+  
+  var userData;
+
+  $(document).ready(function() {
+    // 1. Verifikasi Login
+    userData = JSON.parse(sessionStorage.getItem('user_tryout'));
+    if (!userData) {
+      alert('Sesi Anda telah berakhir. Silakan login kembali.');
+      window.location.href = 'index.html';
+      return;
+    }
+
+    // 2. Tampilkan Info User
+    $('#welcome-message').text('Selamat Datang, ' + userData.nama);
+    $('#loader').fadeIn();
+
+    // 3. Ambil Daftar Mapel
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      data: {
+        action: "getMapel"
+      },
+      url: SCRIPT_URL,
+      cache: false,
+      success: function(mapels) {
+        $('#loader').fadeOut();
+        if (mapels && mapels.length > 0) {
+          var mapelHtml = '';
+          mapels.forEach(function(mapel) {
+            // 'data-id' dan 'data-nama' digunakan untuk menyimpan info mapel
+            mapelHtml += `
+              <button class="btn btn-primary custom-btn btn-block mb-3 mapel-btn" 
+                      data-id="${mapel.id}" 
+                      data-nama="${mapel.nama}">
+                ${mapel.nama}
+              </button>
+            `;
+          });
+          $('#mapel-container').html(mapelHtml);
+        } else {
+          $('#mapel-container').html('<p class="text-danger">Gagal memuat daftar mata pelajaran.</p>');
+        }
+      },
+      error: function() {
+        $('#loader').fadeOut();
+        $('#mapel-container').html('<p class="text-danger">Error terhubung ke server.</p>');
+      }
+    });
+
+    // 4. Event listener untuk tombol mapel
+    // Kita pakai 'document.on' karena tombol dibuat dinamis
+    $(document).on('click', '.mapel-btn', function() {
+      var mapelId = $(this).data('id');
+      var mapelNama = $(this).data('nama');
+      
+      // Simpan mapel yang dipilih ke session storage
+      sessionStorage.setItem('mapel_tryout', JSON.stringify({ id: mapelId, nama: mapelNama }));
+      
+      // Pindah ke halaman simulasi/ujian
+      window.location.href = 'simulasi.html';
+    });
+
+  });
+</script>
+
+</body>
+</html>
